@@ -254,6 +254,9 @@ do while(ireadmg(lnbufr,subset,idate)==0)
         ref_error= data2a(4,k)
         ref_pccf = data2a(6,k)
 
+        ! Make sure lonitude is between [0, 360)
+        if (rlon < 0.) rlon = rlon + 360.
+
 !       Loop over number of replications of ROSEQ2 nested inside this particular replication of ROSEQ1
         nreps_ROSEQ2_int = nreps_this_ROSEQ2(k)
         do i = 1,nreps_ROSEQ2_int
