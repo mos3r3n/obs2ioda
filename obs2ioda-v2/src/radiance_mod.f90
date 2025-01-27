@@ -212,7 +212,11 @@ subroutine read_amsua_amsub_mhs (filename, filedate)
          call fill_datalink(rlink, missing_r, missing_i)
 
          if ( lalodat(1) < r8bfms ) rlink % lat = lalodat(1)
-         if ( lalodat(2) < r8bfms ) rlink % lon = lalodat(2)
+         if ( lalodat(2) < r8bfms ) then
+            rlink % lon = lalodat(2)
+            ! Make sure longitude is between [0, 360)
+            if ( rlink % lon < 0. ) rlink % lon = rlink % lon + 360. 
+         end if
 
          rlink % satid  = nint(infodat(1))  ! SAID satellite identifier
          rlink % instid = nint(infodat(2))  ! SIID instrument identifier
